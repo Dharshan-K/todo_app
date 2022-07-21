@@ -7,10 +7,39 @@
 </head>
 <body>
 	{%for task in task_list%}
-	<h1>{{task.Title}}</h1>
+	<li>
+		<h1>{{task.Title}}</h1>
 	<p>{{task.description}}</p>
-	<br>
-	<p>{{task.status}}</p>
+	
+	<!-- <p>{{task.get_status_display}}</p> -->
+	<form action="/deletetask/{{task.id}}" 
+                        style =" display : inline;"
+                        method="post">{% csrf_token%}
+                 <input type="submit" value="delete">
+             </li>
 	{%endfor%}
+	<br>
+	<br>
+	<form action="/addtask" method="post">
+		{%csrf_token%}
+		<label for="title">Title</label>
+		<input type="text" name="title">
+		<br>
+		<br>
+		<label for="description">Description</label>
+		<input type="text" name="description">
+		<br>
+		<br>
+		<label for="status">Status: </label>
+		<label for="pending">pending</label>
+		<input type="radio" name="pending">
+		<label for="finished">finished</label>
+		<input type="radio" name="finished">
+		<br>
+		<br>
+		<input type="submit" value="add">
+	</form>
+
+
 </body>
 </html>
